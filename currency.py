@@ -123,6 +123,10 @@ def get_dst(json):
     Parameter json: a json string to parse
     Precondition: json a string provided by the web service (ONLY enforce the type)
     """
+    src = introcs.find_str(json, "dst")
+    substring = json[src+5:]
+    result = first_inside_quotes(substring)
+    return result
 
 
 def has_error(json):
