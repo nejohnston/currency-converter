@@ -153,6 +153,10 @@ def test_exchange():
     Test procedure for exchange
     """
     print('Testing exchange')
+    result = currency.exchange('USD', 'EUR', 2.5)
+    introcs.assert_floats_equal(2.2160175, result)
+    result = currency.exchange('USD', 'EUR', -2.5)
+    introcs.assert_floats_equal(-2.2160175, result)
 
 
 test_before_space()

@@ -206,3 +206,30 @@ def iscurrency(currency):
     has_src = get_src(json)
     result = has_src != ""
     return result
+
+
+def exchange(src, dst, amt):
+    """
+    Returns the amount of currency received in the given exchange.
+
+    In this exchange, the user is changing amt money in currency src to the currency 
+    dst. The value returned represents the amount in currency currency_to.
+
+    The value returned has type float.
+
+    Parameter src: the currency on hand
+    Precondition src is a string for a valid currency code
+
+    Parameter dst: the currency to convert to
+    Precondition dst is a string for a valid currency code
+
+    Parameter amt: amount of currency to convert
+    Precondition amt is a float or int
+    """
+    assert iscurrency(src) == True
+    assert iscurrency(dst) == True
+    assert type(amt) == float or type(amt) == int
+    json = service_response(src, dst, amt)
+    json_dst = get_dst(json)
+    result = float(before_space(json_dst))
+    return result
