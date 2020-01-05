@@ -142,6 +142,10 @@ def test_iscurrency():
     Test procedure for iscurrency
     """
     print('Testing iscurrency')
+    result = currency.iscurrency('USD')
+    introcs.assert_true(result)
+    result = currency.iscurrency('p')
+    introcs.assert_false(result)
 
 
 def test_exchange():
