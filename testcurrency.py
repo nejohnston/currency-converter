@@ -123,6 +123,18 @@ def test_service_response():
     Test procedure for service_response
     """
     print('Testing service_response')
+    result = currency.service_response('USD', 'EUR', 2.5)
+    introcs.assert_equals(
+        '{"success": true, "src": "2.5 United States Dollars", "dst": "2.2160175 Euros", "error": ""}', result)
+    result = currency.service_response('USD', 'EUR', -2.5)
+    introcs.assert_equals(
+        '{"success": true, "src": "-2.5 United States Dollars", "dst": "-2.2160175 Euros", "error": ""}', result)
+    result = currency.service_response('p', 'EUR', 2.5)
+    introcs.assert_equals(
+        '{"success": false, "src": "", "dst": "", "error": "The rate for currency P is not present."}', result)
+    result = currency.service_response('USD', 'p', 2)
+    introcs.assert_equals(
+        '{"success": false, "src": "", "dst": "", "error": "The rate for currency P is not present."}', result)
 
 
 def test_iscurrency():

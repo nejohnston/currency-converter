@@ -159,3 +159,50 @@ def has_error(json):
     substring = first_inside_quotes(json_substring)
     result = substring != ''
     return result
+
+
+def service_response(src, dst, amt):
+    """
+    Returns a JSON string that is a response to a currency query.
+
+    A currency query converts amt money in currency src to the currency dst. The response 
+    should be a string of the form
+
+        '{"success": true, "src": "<src-amount>", dst: "<dst-amount>", error: ""}'
+
+    where the values src-amount and dst-amount contain the value and name for the src 
+    and dst currencies, respectively. If the query is invalid, both src-amount and 
+    dst-amount will be empty, and the error message will not be empty.
+
+    There may or may not be spaces after the colon.  To test this function, you should
+    chose specific examples from your web browser.
+
+    Parameter src: the currency on hand
+    Precondition src is a nonempty string with only letters
+
+    Parameter dst: the currency to convert to
+    Precondition dst is a nonempty string with only letters
+
+    Parameter amt: amount of currency to convert
+    Precondition amt is a float or int
+    """
+    url = 'https://ecpyfac.ecornell.com/python/currency/fixed?src=' + src + '&dst=' + \
+        dst + '&amt=' + str(amt) + \
+        '&key=8mNy0uxE2kaogoJoprIscPANUb8YWurAFq0Y84q9oLIe'
+    result = introcs.urlread(url)
+    return result
+
+
+def iscurrency(currency):
+    """
+    Returns True if currency is a valid (3 letter code for a) currency.
+
+    It returns False otherwise.
+
+    Parameter currency: the currency code to verify
+    Precondition: currency is a nonempty string with only letters
+    """
+    json = service_response(currency, currency, 2)
+    has_src = get_src(json)
+    result = has_src != ""
+    return result
