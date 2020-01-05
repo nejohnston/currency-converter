@@ -154,3 +154,8 @@ def has_error(json):
     Parameter json: a json string to parse
     Precondition: json a string provided by the web service (ONLY enforce the type)
     """
+    src = introcs.find_str(json, "error")
+    json_substring = json[src+7:]
+    substring = first_inside_quotes(json_substring)
+    result = substring != ''
+    return result
